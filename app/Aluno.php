@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Professor extends Model
+class Aluno extends Model
 {
+    protected $primaryKey = 'id_aluno';
     public $timestamps = false;
-    protected $primaryKey = 'id_professor';
 
     public function cursos() {
-        return $this->hasMany(Curso::class);
+        return $this->belongsTo(Curso::class);
     }
 }
