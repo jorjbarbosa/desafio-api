@@ -10,7 +10,7 @@ class Curso extends Model
     protected $primaryKey = 'id_curso';
 
     public function professor() {
-        return $this->belongsTo(Professor::class);
+        return $this->belongsTo(Professor::class, 'id_curso');
     }
     public function alunos() {
         return $this->hasMany(Alunos::class);
