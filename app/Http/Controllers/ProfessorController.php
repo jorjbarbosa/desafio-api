@@ -17,7 +17,7 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        $professores = Professor::all();
+        $professores = Professor::with('cursos')->get();
         return response()->json(['data' => $professores]);
     }
 
@@ -29,9 +29,8 @@ class ProfessorController extends Controller
      */
     public function store(ProfessorRequest $request)
     {
-        $dados = $request->validated();
-        $dados['data_criacao'] = Carbon::now();
-        $professor = Professor::create($dados);
+        $request['data_criacao'] = Carbon::now();
+        $professor = Professor::create($request->all());
 
         return response()->json(['data' => $professor]);
     }
@@ -44,7 +43,7 @@ class ProfessorController extends Controller
      */
     public function show($id)
     {
-        $professor = Professor::findOrFail($id);
+        $professor = Professor::with('cursos')->findOrFail($id);
         return response()->json(['data' => $professor]);
     }
 
@@ -58,9 +57,8 @@ class ProfessorController extends Controller
     public function update(ProfessorRequest $request, $id)
     {
         $professor = Professor::findOrFail($id);
-        $dados = $request->validated();
 
-        $professor->update($dados);
+        $professor->update($request->all());
         return response()->json(['data' => $professor]);
     }
 

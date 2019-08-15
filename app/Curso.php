@@ -9,6 +9,8 @@ class Curso extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_curso';
 
+    protected $fillable = ['nome', 'data_criacao', 'id_professor'];
+
     public function professor() {
         return $this->belongsTo(Professor::class, 'id_curso');
     }

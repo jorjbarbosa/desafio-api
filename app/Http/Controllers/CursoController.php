@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Curso;
+use App\Http\Requests\CursoRequest;
+use App\Professor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -13,7 +17,8 @@ class CursoController extends Controller
      */
     public function index()
     {
-
+        $cursos = Curso::all();
+        return response()->json(['data' => $cursos]);
     }
 
     /**
@@ -22,9 +27,13 @@ class CursoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CursoRequest $request)
     {
-        //
+        $professor = Professor::findOrFail($request['id_professor']);
+        $request['data_criacao'] = Carbon::now();
+        $curso  = $professor->cursos()->create($request->all());
+
+        return response()->json(['data' => $curso]);
     }
 
     /**
@@ -35,7 +44,8 @@ class CursoController extends Controller
      */
     public function show($id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        return response()->json(['data' => $curso]);
     }
 
     /**
@@ -47,7 +57,9 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        $curso->update($request->all());
+        return response()->json(['data' => $curso]);
     }
 
     /**
@@ -58,6 +70,10 @@ class CursoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $curso = Curso::findOrfail($id);
+
+        $curso->delete();
+
+        return response()->json(['data' => $curso]);
     }
 }

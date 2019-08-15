@@ -13,7 +13,7 @@ class CursoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class CursoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => 'required',
+            'id_professor' => 'required'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'nome.required' => 'O campo nome é obrigatório',
+            'id_professor.required' => 'Informe o Professor Responsável'
         ];
     }
 }
