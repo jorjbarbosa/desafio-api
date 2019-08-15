@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Aluno;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AlunoController extends Controller
@@ -13,7 +15,8 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        //
+        $alunos = Aluno::all();
+        return response()->json(['data' => $alunos]);
     }
 
     /**
@@ -24,7 +27,10 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['data_criacao'] = Carbon::now();
+        $aluno = Aluno::create($request->all());
+
+        return response()->json(['data' => $aluno]);
     }
 
     /**
@@ -35,7 +41,8 @@ class AlunoController extends Controller
      */
     public function show($id)
     {
-        //
+        $aluno = Aluno::find($id);
+        return response()->json(['data' => $aluno]);
     }
 
     /**
@@ -47,7 +54,9 @@ class AlunoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        $aluno->update($request->all());
+        return response()->json(['data' => $aluno]);
     }
 
     /**
@@ -58,6 +67,8 @@ class AlunoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        $aluno->delete();
+        return response()->json(['data' => $aluno]);
     }
 }

@@ -17,7 +17,7 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $cursos = Curso::all();
+        $cursos = Curso::with('alunos')->get();
         return response()->json(['data' => $cursos]);
     }
 

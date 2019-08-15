@@ -15,6 +15,6 @@ class Curso extends Model
         return $this->belongsTo(Professor::class, 'id_curso');
     }
     public function alunos() {
-        return $this->hasMany(Alunos::class);
+        return $this->hasMany(Aluno::class, 'id_curso');
     }
 }
