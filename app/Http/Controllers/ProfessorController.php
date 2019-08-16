@@ -10,11 +10,11 @@ use Illuminate\Session\Store;
 
 class ProfessorController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:api');
+//
+//    }
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +23,7 @@ class ProfessorController extends Controller
     public function index()
     {
         $professores = Professor::with('cursos')->get();
-        return response()->json(['data' => $professores]);
+        return response()->json($professores);
     }
 
     /**

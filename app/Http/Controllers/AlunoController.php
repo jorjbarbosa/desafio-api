@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class AlunoController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:api', ['except' => ['login']]);
+//
+//    }
     /**
      * Display a listing of the resource.
      *
