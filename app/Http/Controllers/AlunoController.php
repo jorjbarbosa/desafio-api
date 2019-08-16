@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Aluno;
+use App\Http\Requests\AlunoRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AlunoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +31,7 @@ class AlunoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AlunoRequest $request)
     {
         $request['data_criacao'] = Carbon::now();
         $aluno = Aluno::create($request->all());
@@ -52,7 +58,7 @@ class AlunoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AlunoRequest $request, $id)
     {
         $aluno = Aluno::findOrFail($id);
         $aluno->update($request->all());
