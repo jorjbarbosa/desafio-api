@@ -22,7 +22,7 @@ class AlunoController extends Controller
     public function index()
     {
         $alunos = Aluno::all();
-        return response()->json(['data' => $alunos]);
+        return response()->json($alunos);
     }
 
     /**
@@ -36,7 +36,7 @@ class AlunoController extends Controller
         $request['data_criacao'] = Carbon::now();
         $aluno = Aluno::create($request->all());
 
-        return response()->json(['data' => $aluno]);
+        return response()->json($aluno);
     }
 
     /**
@@ -47,8 +47,8 @@ class AlunoController extends Controller
      */
     public function show($id)
     {
-        $aluno = Aluno::find($id);
-        return response()->json(['data' => $aluno]);
+        $aluno = Aluno::findOrFail($id);
+        return response()->json($aluno);
     }
 
     /**
@@ -62,7 +62,7 @@ class AlunoController extends Controller
     {
         $aluno = Aluno::findOrFail($id);
         $aluno->update($request->all());
-        return response()->json(['data' => $aluno]);
+        return response()->json($aluno);
     }
 
     /**
@@ -75,6 +75,6 @@ class AlunoController extends Controller
     {
         $aluno = Aluno::findOrFail($id);
         $aluno->delete();
-        return response()->json(['data' => $aluno]);
+        return response()->json($aluno);
     }
 }

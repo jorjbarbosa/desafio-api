@@ -49,7 +49,7 @@ class ProfessorController extends Controller
     public function show($id)
     {
         $professor = Professor::with('cursos')->findOrFail($id);
-        return response()->json(['data' => $professor]);
+        return response()->json($professor);
     }
 
     /**
